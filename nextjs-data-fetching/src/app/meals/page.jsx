@@ -1,5 +1,11 @@
 import React from 'react'
 import MealSearchInput from './components/MealSearchInput';
+import Link from 'next/link';
+
+export const metadata = {
+  title: "All Meals",
+  description: "List of meals fetched from The MealDB API",
+};
 
 export default async function MealsPage({searchParams}) {
     const query = searchParams;
@@ -9,7 +15,7 @@ export default async function MealsPage({searchParams}) {
         try{
             const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query.search }`);
         const data = await res.json();
-        return data.meals ;
+        return data.meals || []; 
         } catch (error) {
             console.error("Error fetching meals:", error);
             return [];
@@ -27,11 +33,15 @@ export default async function MealsPage({searchParams}) {
       <div className='space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 '>
         {
     meals.map(meal => (
-          <div key={meal.idMeal} className='p-4 border rounded-lg shadow hover:shadow-lg transition-shadow duration-300 w-full'>
+        
+            <Link href={`/meals/${meal.idMeal}`}>
+            <div key={meal.idMeal} className='p-4 border rounded-lg shadow hover:shadow-lg transition-shadow duration-300 w-full'>
             <h2 className='text-lg font-semibold'>{meal.strMeal}</h2>   
             <p className='text-gray-600'>{meal.strArea} - {meal.strCategory}</p>
             <img src={meal.strMealThumb} alt={meal.strMeal} className='w-full h-48 object-cover rounded mt-2' />
             </div>
+            </Link>
+            
         ))}
       </div>
     </div>
