@@ -1,6 +1,7 @@
 import React from 'react'
 import MealSearchInput from './components/MealSearchInput';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata = {
   title: "All Meals",
@@ -33,15 +34,12 @@ export default async function MealsPage({searchParams}) {
       <div className='space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 '>
         {
     meals.map(meal => (
-        
-            <Link href={`/meals/${meal.idMeal}`}>
-            <div key={meal.idMeal} className='p-4 border rounded-lg shadow hover:shadow-lg transition-shadow duration-300 w-full'>
+          <div key={meal.idMeal} className='p-4 border rounded-lg shadow hover:shadow-lg transition-shadow duration-300 w-full'>
             <h2 className='text-lg font-semibold'>{meal.strMeal}</h2>   
             <p className='text-gray-600'>{meal.strArea} - {meal.strCategory}</p>
-            <img src={meal.strMealThumb} alt={meal.strMeal} className='w-full h-48 object-cover rounded mt-2' />
+            <Image src={meal.strMealThumb} alt={meal.strMeal} width={500} height={500} className='object-cover rounded mt-2' />
+            <Link href={`/meals/${meal.idMeal}`}>Details</Link>
             </div>
-            </Link>
-            
         ))}
       </div>
     </div>
