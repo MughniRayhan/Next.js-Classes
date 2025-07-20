@@ -10,7 +10,7 @@ export default function NavBar() {
   return (
     <div>
       <nav className='bg-gray-800'>
-          <ul className="flex items-center justify-between p-4  text-white px-8 w-96 mx-auto">
+          <ul className="flex items-center justify-between p-4  text-white px-8 w-[50%] mx-auto">
             <Link href="/">
                <li> Home </li>
             </Link>
@@ -22,6 +22,12 @@ export default function NavBar() {
             </Link>
             <Link href="/meals">
               <li> Meals </li>
+            </Link>
+            <Link href="/products">
+              <li> Products </li>
+            </Link>
+            <Link href="/products/add">
+              <li>Add Products </li>
             </Link>
           </ul>
         </nav>
