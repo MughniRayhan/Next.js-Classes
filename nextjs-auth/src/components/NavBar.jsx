@@ -18,6 +18,9 @@ export default function NavBar() {
             <Link href="/register">
               <li>Register </li>
             </Link>
+            <Link href="/dashboard/products/add">
+              <li>Add Products</li>
+            </Link>
           </ul>
         </nav>
     </div>
