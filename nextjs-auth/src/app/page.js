@@ -3,6 +3,7 @@ import UserInfo from "@/components/UserInfo";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { authOptions } from "./lib/authOptions";
+import LogoutButton from "@/components/LogoutButton";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -54,7 +55,7 @@ export default async function Home() {
           >
             Read our docs
           </a>
-          <LoginButton/>
+          {session?.user ? (<LogoutButton/>) : (<LoginButton/>)}
          
         </div>
          <p className="font-semibold text-gray-200"> From client </p>
