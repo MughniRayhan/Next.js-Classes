@@ -37,7 +37,28 @@ export const authOptions = {
   })
 ],
   callbacks: {
-    
+     async signIn({ user, account, profile, email, credentials }) {
+        if(account){
+            try {
+                // console.log("From Callbacks", { user, account, profile, email, credentials });
+             const {providerAccountId,provider} = account;
+        const {name, email, image} = profile;
+        const payload = {role: "user", providerAccountId, provider, name, email, image};
+        console.log("From Callbacks", payload);
+        const existingUser = await dbConnect("users").findOne({providerAccountId});
+
+        if(!existingUser){
+            await dbConnect("users").insertOne(payload);
+        }
+            } catch (error) {
+                console.log(error)
+                return false; // Reject sign-in if there's an error
+            }
+
+        }
+       
+      return true
+    },
     async session({ session, user, token }) {
       if(token){
         session.user.username = token.username
